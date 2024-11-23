@@ -5,5 +5,11 @@
  * @returns {boolean}
  */
 module.exports.hasProperty = function hasProperty(object, prop) {
-  throw new Error('Not implemented'); // remove me and write a solution
+  if (typeof object !== 'object' || object === null) {
+    throw new Error('First argument must be a non-null object');
+  }
+  if (typeof prop !== 'string') {
+    throw new Error('Second argument must be a string');
+  }
+  return Object.prototype.hasOwnProperty.call(object, prop);
 };

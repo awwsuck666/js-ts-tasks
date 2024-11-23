@@ -12,5 +12,17 @@
  * @returns {Object}
  */
 module.exports.partialSum = function partialSum(arr) {
-  throw new Error('Not implemented'); // remove me and write a solution
+  if (!Array.isArray(arr)) {
+    throw new Error('Input must be an array');
+  }
+
+  const result = [];
+  let runningSum = 0;
+
+  for (let i = 0; i < arr.length; i++) {
+    runningSum += arr[i];
+    result.push(runningSum);
+  }
+
+  return result;
 };

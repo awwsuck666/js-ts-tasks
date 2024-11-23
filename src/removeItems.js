@@ -5,5 +5,9 @@
  * @returns {Object}
  */
 module.exports.removeItems = function removeItems(arr, value) {
-  throw new Error('Not implemented'); // remove me and write a solution
+  if (!Array.isArray(arr)) {
+    throw new Error('First argument must be an array');
+  }
+
+  return arr.filter(item => item !== value);
 };

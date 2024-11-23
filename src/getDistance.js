@@ -7,5 +7,19 @@
  * @returns {number}
  */
 module.exports.getDistance = function getDistance(firstPoint, secondPoint) {
-  throw new Error('Not implemented'); // remove me and write a solution
+  if (
+    typeof firstPoint !== 'object' || typeof secondPoint !== 'object' ||
+    firstPoint === null || secondPoint === null ||
+    typeof firstPoint.X !== 'number' || typeof firstPoint.Y !== 'number' ||
+    typeof secondPoint.X !== 'number' || typeof secondPoint.Y !== 'number'
+  ) {
+    throw new Error('Invalid input: Points must be objects with numeric X and Y properties');
+  }
+
+  const deltaX = secondPoint.X - firstPoint.X;
+  const deltaY = secondPoint.Y - firstPoint.Y;
+
+  const distance = Math.sqrt(deltaX ** 2 + deltaY ** 2);
+
+  return parseFloat(distance.toFixed(2));
 };

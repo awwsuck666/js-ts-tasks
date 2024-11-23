@@ -4,5 +4,8 @@
  * @returns {number}
  */
 module.exports.diffElems = function diffElems(arr) {
-  throw new Error('Not implemented'); // remove me and write a solution
+  if (!Array.isArray(arr)) {
+    throw new Error('Input must be an array');
+  }
+  return new Set(arr).size;
 };
