@@ -1,12 +1,36 @@
 class User {
   constructor(firstName, secondName, age) {
-    this.firstName = firstName;
+    if (!firstName || typeof firstName !== 'string') {
+      throw new Error();
+    }
+    if (!secondName || typeof secondName !== 'string') {
+      throw new Error();
+    }
+    if (typeof age !== 'number' || isNaN(age)) {
+      throw new Error();
+    }
+    this._firstName = firstName;
     this.secondName = secondName;
     this.age = age;
   }
 
+  set firstName(newFirstName) {
+    if (!newFirstName || typeof newFirstName !== 'string') {
+      throw new Error();
+    }
+    this._firstName = newFirstName;
+  }
+
+  get name() {
+    return `${this._firstName} ${this.secondName}`;
+  }
+
   celebrateBirthday() {
     this.age += 1;
+  }
+
+  introduce() {
+    return `My name is ${this._firstName} ${this.secondName}, I'm ${this.age}`;
   }
 }
 
@@ -33,7 +57,14 @@ module.exports.createUser = function (firstName, secondName, age) {
  * @returns {Array<User>}
  */
 module.exports.createUsers = function (data) {
-  return data.map(userData => new User(userData.firstName, userData.secondName, userData.age));
+  let user = []
+  for (let i = 0; i < data.length; i++) {
+    user.push(new User (data[i].firstName, data[i].secondName, data[i].age));
+  }
+  //user.push(new User (data.firstName, data.secondName, data.age));
+
+
+  return user;
 };
 
 /**
@@ -43,8 +74,16 @@ module.exports.createUsers = function (data) {
  * @returns {Array<Users>}
  */
 module.exports.findUsersByAge = function (users, age) {
-  return users.filter(user => user.age === age);
-};
+  let user = []
+  for (var i = 0; i < users.length; i++) {
+    if (users[i].age === age) {
+      user.push(users[i]);
+
+    }
+
+  }
+  return user;
+}
 
 /**
  * Return a function that sort provided Array of Users using a comparator function from TestUtils
@@ -53,8 +92,8 @@ module.exports.findUsersByAge = function (users, age) {
  */
 module.exports.createUsersSortFn = function (TestUtils) {
   return function (users) {
-    return users.sort(TestUtils.compare);
-  };
+    return users.sort(TestUtils.comparator);
+  }
 };
 
 /**
@@ -63,10 +102,10 @@ module.exports.createUsersSortFn = function (TestUtils) {
  * @return {Array<User>}
  */
 module.exports.celebrate = function (users) {
-  users.forEach((user, index) => {
-    if (index % 2 !== 0) {
-      user.celebrateBirthday();
+  for (let i = 0; i < users.length; i++) {
+    if (i % 2 === 0) {
+      users[i].celebrateBirthday();
     }
-  });
+  }
   return users;
 };
