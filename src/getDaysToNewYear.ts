@@ -3,6 +3,13 @@
  * @param {Date | string} targetDate
  * @returns {number}
  */
-module.exports.getDaysToNewYear = function getDaysToNewYear(targetDate: Date | string): number {
-  throw new Error('Not implemented'); // delete this line and write your code
+module.exports.getDaysToNewYear = function getDaysToNewYear(targetDate) {
+  const date = new Date(targetDate);
+  if (isNaN(date)) throw new Error('Invalid date');
+
+  const nextNewYear = new Date(date.getFullYear() + 1, 0, 1);
+  const timeDiff = nextNewYear - date;
+  const daysLeft = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+
+  return daysLeft;
 };

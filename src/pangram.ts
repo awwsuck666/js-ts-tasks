@@ -5,6 +5,29 @@
  * @param {string|number} word
  * @returns {boolean}
  */
-module.exports.pangram = function (word: string | number): boolean {
-  throw new Error('Not implemented'); // delete this line and write your code
+module.exports.pangram = function (word) {
+  if (typeof word !== 'string' && typeof word !== 'number') {
+    throw new Error('Invalid input');
+  }
+
+  const str = word.toString().toLowerCase();
+
+  if (typeof word === 'string') {
+    const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+    for (let i = 0; i < alphabet.length; i++) {
+      if (!str.includes(alphabet[i])) {
+        return false;
+      }
+    }
+    return true;
+  } else {
+    const digits = '0123456789';
+    for (let i = 0; i < digits.length; i++) {
+      if (!str.includes(digits[i])) {
+        return false;
+      }
+    }
+    return true;
+  }
 };
+
